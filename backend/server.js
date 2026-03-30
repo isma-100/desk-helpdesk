@@ -1,16 +1,15 @@
 require('dotenv').config();
 require('express-async-errors');
-const express = require('express');
-const cors    = require('cors');
-const helmet  = require('helmet');
-const morgan  = require('morgan');
-const path    = require('path');
+const express   = require('express');
+const cors      = require('cors');
+const helmet    = require('helmet');
+const morgan    = require('morgan');
+const path      = require('path');
 const rateLimit = require('express-rate-limit');
 
-const connectDB     = require('./config/database');
-const errorHandler  = require('./middleware/errorHandler');
-const notFound      = require('./middleware/notFound');
-
+const connectDB      = require('./config/database');
+const errorHandler   = require('./middleware/errorHandler');
+const notFound       = require('./middleware/notFound');
 const authRoutes         = require('./routes/auth');
 const ticketRoutes       = require('./routes/tickets');
 const commentRoutes      = require('./routes/comments');
@@ -21,53 +20,63 @@ const uploadRoutes       = require('./routes/uploads');
 
 const app = express();
 
-// Connect Database
-connectDB();
-
-// Trust proxy (needed for Railway/Render/Vercel)
+// Trust proxy (required for Railway)
 app.set('trust proxy', 1);
 
-// Security
+// ── HEALTH CHECK FIRST (before anything else) ──────────────────────────────
+// Railway pings this to check if server is alive.
+// It MUST respond even if DB is not connected yet.
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'DESK API is running',
+    env: process.env.NODE_ENV || 'development',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// ── SECURITY ────────────────────────────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 
-// Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Too many requests, please try again later.' }
+  message: { success: false, message: 'Too many requests.' }
 });
 app.use('/api/', limiter);
 
-// CORS — allow multiple origins for dev + prod
+// ── CORS ────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
   'http://localhost:3000',
+  'http://localhost:3001',
   process.env.CLIENT_URL,
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile, curl, Postman)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS blocked: ${origin}`));
+    if (allowedOrigins.some(o => o && origin.startsWith(o.replace(/\/$/, '')))) {
+      return callback(null, true);
+    }
+    // In development, allow all origins
+    if (process.env.NODE_ENV !== 'production') return callback(null, true);
+    callback(new Error(`CORS: origin ${origin} not allowed`));
   },
   credentials: true,
 }));
 
-// Body parsing
+// ── BODY PARSING ────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Logging
 if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'));
 
-// Static uploads
+// ── STATIC FILES ────────────────────────────────────────────────────────────
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// API Routes
+// ── API ROUTES ───────────────────────────────────────────────────────────────
 app.use('/api/auth',          authRoutes);
 app.use('/api/tickets',       ticketRoutes);
 app.use('/api/comments',      commentRoutes);
@@ -76,27 +85,34 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/audit',         auditRoutes);
 app.use('/api/upload',        uploadRoutes);
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({
-    success: true,
-    message: 'DESK API is running',
-    env: process.env.NODE_ENV,
-    timestamp: new Date().toISOString(),
-  });
-});
-
-// Error handlers (must be last)
+// ── ERROR HANDLERS (must be last) ───────────────────────────────────────────
 app.use(notFound);
 app.use(errorHandler);
 
+// ── START SERVER ─────────────────────────────────────────────────────────────
+// Start listening IMMEDIATELY so Railway healthcheck passes
+// THEN connect to database
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 DESK API — ${process.env.NODE_ENV || 'development'} — port ${PORT}`);
-  console.log(`📡 Health: http://localhost:${PORT}/api/health\n`);
+
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n🚀 DESK API started on port ${PORT}`);
+  console.log(`📡 Health: http://0.0.0.0:${PORT}/api/health`);
+  console.log(`🌍 Mode: ${process.env.NODE_ENV || 'development'}\n`);
 });
 
+// Connect to DB AFTER server is listening
+connectDB();
+
+// ── GRACEFUL SHUTDOWN ────────────────────────────────────────────────────────
 process.on('unhandledRejection', (err) => {
-  console.error('Unhandled Rejection:', err.message);
-  process.exit(1);
+  console.error('❌ Unhandled Rejection:', err.message);
+  server.close(() => process.exit(1));
+});
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Shutting down gracefully...');
+  server.close(() => {
+    console.log('Server closed.');
+    process.exit(0);
+  });
 });
