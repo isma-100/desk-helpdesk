@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { useNotifications } from '../../context/NotificationContext';
-import { Avatar } from '../common';
-import { relativeTime } from '../../utils/helpers';
+import { useAuth } from 'context/AuthContext';
+import { useNotifications } from 'context/NotificationContext';
+import { Avatar } from 'components/common';
+import { relativeTime } from 'utils/helpers';
 import {
   HomeIcon, TicketIcon, QueueListIcon, UserGroupIcon,
   ChartBarIcon, ShieldCheckIcon, BellIcon, PlusCircleIcon,

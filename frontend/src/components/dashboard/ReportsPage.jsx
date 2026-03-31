@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ticketAPI, userAPI } from '../../api';
-import { StatCard, PageLoader, Avatar } from '../common';
+import { ticketAPI, userAPI } from 'api';
+import { StatCard, PageLoader, Avatar } from 'components/common';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
   PieChart, Pie, Cell, Legend, LineChart, Line, AreaChart, Area

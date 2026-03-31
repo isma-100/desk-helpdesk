@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authAPI } from '../api';
-import { Spinner } from '../components/common';
+import { authAPI } from 'api';
+import { Spinner } from 'components/common';
 import { ShieldCheckIcon, EnvelopeIcon, KeyIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 

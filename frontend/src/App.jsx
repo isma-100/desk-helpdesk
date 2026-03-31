@@ -1,19 +1,19 @@
 import React, { useState, createContext, useContext } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
-import { AppLayout } from './components/layout/AppLayout';
-import { LoginPage, RegisterPage } from './pages/AuthPages';
-import { ProfilePage } from './pages/ProfilePage';
-import { Dashboard } from './components/dashboard/Dashboard';
-import { ReportsPage } from './components/dashboard/ReportsPage';
-import { TicketsTable } from './components/tickets/TicketsTable';
-import { NewTicketModal } from './components/tickets/NewTicketModal';
-import { AdminUsersPage } from './components/admin/AdminUsersPage';
-import { AuditTrailPage } from './components/admin/AuditTrailPage';
-import { Spinner } from './components/common';
-import { ErrorBoundary } from './components/common/ErrorBoundary';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { ForgotPasswordPage, ResetPasswordPage } from './pages/ForgotPasswordPage';
+import { useAuth } from 'context/AuthContext';
+import { AppLayout } from 'components/layout/AppLayout';
+import { LoginPage, RegisterPage } from 'pages/AuthPages';
+import { ProfilePage } from 'pages/ProfilePage';
+import { Dashboard } from 'components/dashboard/Dashboard';
+import { ReportsPage } from 'components/dashboard/ReportsPage';
+import { TicketsTable } from 'components/tickets/TicketsTable';
+import { NewTicketModal } from 'components/tickets/NewTicketModal';
+import { AdminUsersPage } from 'components/admin/AdminUsersPage';
+import { AuditTrailPage } from 'components/admin/AuditTrailPage';
+import { Spinner } from 'components/common';
+import { ErrorBoundary } from 'components/common/ErrorBoundary';
+import { NotFoundPage } from 'pages/NotFoundPage';
+import { ForgotPasswordPage, ResetPasswordPage } from 'pages/ForgotPasswordPage';
 
 // ─── New Ticket Context (so any component can trigger it) ─────────────────────
 const NewTicketCtx = createContext(null);

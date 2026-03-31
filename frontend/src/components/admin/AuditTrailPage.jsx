@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { auditAPI } from '../../api';
-import { Avatar, PageLoader, EmptyState, SearchInput } from '../common';
-import { formatDateTime, relativeTime } from '../../utils/helpers';
+import { auditAPI } from 'api';
+import { Avatar, PageLoader, EmptyState, SearchInput } from 'components/common';
+import { formatDateTime, relativeTime } from 'utils/helpers';
 import { ShieldCheckIcon, FunnelIcon } from '@heroicons/react/24/outline';
 
 const ACTION_LABELS = {

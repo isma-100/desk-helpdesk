@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { authAPI } from '../../api';
-import { useAuth } from '../../context/AuthContext';
-import { Avatar, Spinner, FormField } from '../common';
-import { formatDateTime } from '../../utils/helpers';
+import { authAPI } from 'api';
+import { useAuth } from 'context/AuthContext';
+import { Avatar, Spinner, FormField } from 'components/common';
+import { formatDateTime } from 'utils/helpers';
 import { UserCircleIcon, KeyIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 
 const ROLE_LABELS = { employee: 'Employee', technician: 'IT Technician', admin: 'Administrator' };

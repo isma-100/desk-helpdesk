@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { Spinner } from '../../components/common';
+import { useAuth } from 'context/AuthContext';
+import { Spinner } from 'components/common';
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
 const DEMO_ACCOUNTS = [
-  { role: 'Employee',    email: 'sarah@company.com',  password: 'password123' },
-  { role: 'Technician',  email: 'alex@company.com',   password: 'password123' },
-  { role: 'Admin',       email: 'david@company.com',  password: 'password123' },
+  { role: 'Employee',   email: 'sarah@company.com',  password: 'password123' },
+  { role: 'Technician', email: 'alex@company.com',   password: 'password123' },
+  { role: 'Admin',      email: 'david@company.com',  password: 'password123' },
 ];
 
 export const LoginPage = () => {
@@ -47,7 +47,6 @@ export const LoginPage = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-slide-up">
-        {/* Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-600 rounded-2xl shadow-lg mb-4">
             <ShieldCheckIcon className="w-8 h-8 text-white" />
@@ -60,7 +59,6 @@ export const LoginPage = () => {
           <h2 className="text-lg font-semibold text-slate-800 mb-1">Sign in</h2>
           <p className="text-sm text-slate-500 mb-6">Enter your credentials to access the helpdesk</p>
 
-          {/* Demo accounts */}
           <div className="mb-5 p-3 bg-blue-50 rounded-lg border border-blue-100">
             <div className="text-xs font-semibold text-blue-700 mb-2">Demo Accounts</div>
             <div className="flex gap-2 flex-wrap">
@@ -82,8 +80,10 @@ export const LoginPage = () => {
             <div className="space-y-4">
               <div>
                 <label className="label">Email Address</label>
-                <input type="email" value={form.email} onChange={e => setForm(p => ({...p, email: e.target.value}))}
-                  className={`input ${errors.email ? 'input-error' : ''}`} placeholder="you@company.com" autoComplete="email" />
+                <input type="email" value={form.email}
+                  onChange={e => setForm(p => ({...p, email: e.target.value}))}
+                  className={`input ${errors.email ? 'input-error' : ''}`}
+                  placeholder="you@company.com" autoComplete="email" />
                 {errors.email && <p className="error-text">{errors.email}</p>}
               </div>
               <div>
@@ -91,8 +91,10 @@ export const LoginPage = () => {
                   <label className="label !mb-0">Password</label>
                   <Link to="/forgot-password" className="text-xs text-blue-600 hover:underline">Forgot password?</Link>
                 </div>
-                <input type="password" value={form.password} onChange={e => setForm(p => ({...p, password: e.target.value}))}
-                  className={`input ${errors.password ? 'input-error' : ''}`} placeholder="••••••••" autoComplete="current-password" />
+                <input type="password" value={form.password}
+                  onChange={e => setForm(p => ({...p, password: e.target.value}))}
+                  className={`input ${errors.password ? 'input-error' : ''}`}
+                  placeholder="••••••••" autoComplete="current-password" />
                 {errors.password && <p className="error-text">{errors.password}</p>}
               </div>
             </div>
@@ -158,10 +160,10 @@ export const RegisterPage = () => {
             {errors.general && <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">{errors.general}</div>}
             <div className="space-y-4">
               {[
-                { field: 'name',    label: 'Full Name',    type: 'text',     placeholder: 'Sarah Johnson' },
-                { field: 'email',   label: 'Email',        type: 'email',    placeholder: 'you@company.com' },
-                { field: 'department', label: 'Department', type: 'text',   placeholder: 'Marketing' },
-                { field: 'password', label: 'Password',    type: 'password', placeholder: 'Min. 6 characters' },
+                { field: 'name',            label: 'Full Name',        type: 'text',     placeholder: 'Sarah Johnson' },
+                { field: 'email',           label: 'Email',            type: 'email',    placeholder: 'you@company.com' },
+                { field: 'department',      label: 'Department',       type: 'text',     placeholder: 'Marketing' },
+                { field: 'password',        label: 'Password',         type: 'password', placeholder: 'Min. 6 characters' },
                 { field: 'confirmPassword', label: 'Confirm Password', type: 'password', placeholder: 'Repeat password' },
               ].map(({ field, label, type, placeholder }) => (
                 <div key={field}>

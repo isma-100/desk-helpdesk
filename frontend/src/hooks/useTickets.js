@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { ticketAPI } from '../api';
-import { useAuth } from '../context/AuthContext';
+import { ticketAPI } from 'api';
+import { useAuth } from 'context/AuthContext';
 
 /**
  * useTickets — fetches, filters and paginates tickets

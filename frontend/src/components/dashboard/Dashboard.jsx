@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { ticketAPI } from '../../api';
-import { StatCard, PageLoader, StatusBadge, PriorityBadge, UserChip } from '../common';
-import { TicketDetailModal } from '../tickets/TicketDetailModal';
-import { relativeTime, truncate } from '../../utils/helpers';
+import { useAuth } from 'context/AuthContext';
+import { ticketAPI } from 'api';
+import { StatCard, PageLoader, StatusBadge, PriorityBadge, UserChip } from 'components/common';
+import { TicketDetailModal } from 'components/tickets/TicketDetailModal';
+import { relativeTime, truncate } from 'utils/helpers';
 import {
   TicketIcon, ClockIcon, CheckCircleIcon, ExclamationTriangleIcon,
   QueueListIcon, ChartBarIcon

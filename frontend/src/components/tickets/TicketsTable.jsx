@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ticketAPI } from '../../api';
-import { useAuth } from '../../context/AuthContext';
-import { StatusBadge, PriorityBadge, CategoryTag, UserChip, SearchInput, PageLoader, EmptyState, Select } from '../common';
+import { ticketAPI } from 'api';
+import { useAuth } from 'context/AuthContext';
+import { StatusBadge, PriorityBadge, CategoryTag, UserChip, SearchInput, PageLoader, EmptyState, Select } from 'components/common';
 import { TicketDetailModal } from './TicketDetailModal';
-import { relativeTime, debounce, CATEGORIES, PRIORITIES } from '../../utils/helpers';
+import { relativeTime, debounce, CATEGORIES, PRIORITIES } from 'utils/helpers';
 import { TicketIcon, FunnelIcon } from '@heroicons/react/24/outline';
 
 const STATUS_FILTERS = [

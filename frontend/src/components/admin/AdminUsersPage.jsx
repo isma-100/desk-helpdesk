@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { userAPI } from '../../api';
+import { userAPI } from 'api';
 import {
   Avatar, StatCard, SearchInput, PageLoader, EmptyState,
   Modal, FormField, Select, Spinner, ConfirmDialog
-} from '../common';
-import { formatDateTime, ROLES } from '../../utils/helpers';
+} from 'components/common';
+import { formatDateTime, ROLES } from 'utils/helpers';
 import {
   UserGroupIcon, UserPlusIcon, PencilIcon,
   UserCircleIcon, CheckCircleIcon, XCircleIcon

@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
-import { ticketAPI } from '../../api';
-import { Modal, FormField, Select, Spinner, FileIcon } from '../common';
-import { formatBytes, CATEGORIES, PRIORITIES } from '../../utils/helpers';
+import { ticketAPI } from 'api';
+import { Modal, FormField, Select, Spinner, FileIcon } from 'components/common';
+import { formatBytes, CATEGORIES, PRIORITIES } from 'utils/helpers';
 import { CloudArrowUpIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB

@@ -1,5 +1,5 @@
 import React from 'react';
-import { statusClass, statusDotClass, priorityClass, initials, avatarColor } from '../../utils/helpers';
+import { statusClass, statusDotClass, priorityClass, initials, avatarColor } from 'utils/helpers';
 import { XMarkIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────

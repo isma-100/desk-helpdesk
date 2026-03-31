@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-import { ticketAPI, commentAPI, userAPI, auditAPI } from '../../api';
-import { useAuth } from '../../context/AuthContext';
-import { Modal, StatusBadge, PriorityBadge, CategoryTag, Avatar, UserChip, Spinner, FileIcon, Select, FormField } from '../common';
-import { SkeletonTicketDetail } from '../common/Skeletons';
+import { ticketAPI, commentAPI, userAPI, auditAPI } from 'api';
+import { useAuth } from 'context/AuthContext';
+import { Modal, StatusBadge, PriorityBadge, CategoryTag, Avatar, UserChip, Spinner, FileIcon, Select, FormField } from 'components/common';
+import { SkeletonTicketDetail } from 'components/common/Skeletons';
 import { ClockIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
-import { relativeTime, formatDateTime, formatBytes, STATUSES, PRIORITIES } from '../../utils/helpers';
+import { relativeTime, formatDateTime, formatBytes, STATUSES, PRIORITIES } from 'utils/helpers';
 import { ChatBubbleLeftIcon, LockClosedIcon, PaperClipIcon } from '@heroicons/react/24/outline';
 
 const CommentItem = ({ comment, canDelete, onDelete }) => (
